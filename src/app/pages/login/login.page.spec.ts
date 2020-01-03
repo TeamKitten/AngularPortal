@@ -73,6 +73,7 @@ describe('LoginPage', () => {
 
   it('if already stored access token' , () => {
     storageServiceSpy.getAccessToken.and.returnValue(null);
+    fixture.detectChanges();
     component.ngOnInit();
     expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
@@ -92,6 +93,7 @@ describe('LoginPage', () => {
     component.password = 'foo';
     fixture.detectChanges();
     component.login();
+    toastCtrlSpy.create.and.returnValue({ present: () => undefined });
     expect(toastCtrlSpy.create).toHaveBeenCalled();
   });
 });
