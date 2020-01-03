@@ -30,6 +30,7 @@ describe('AuthGuard', () => {
   }));
 
   it('should not be passed', inject([AuthGuard], (guard: AuthGuard) => {
+    accessToken = null;
     expect(guard.canActivate()).toBeFalsy();
     expect(router.navigate).toHaveBeenCalledWith(['/login']);
   }));
