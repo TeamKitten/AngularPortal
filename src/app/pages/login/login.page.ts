@@ -13,6 +13,7 @@ export class LoginPage implements OnInit {
   memberCode = '';
   password = '';
   loading = false;
+  initialized = false;
 
   constructor(
     private authService: AuthService,
@@ -24,7 +25,9 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     if (this.storageService.getAccessToken()) {
       this.router.navigate(['/']);
+      return;
     }
+    this.initialized = true;
   }
 
   login(event?: Event) {
