@@ -1,9 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding flexCentering">
+  <header class="logoWrapper flexCentering">
+    <img class="logo" src="/assets/logo.svg" alt="logo">
+  </header>
+  <form class="form flexCentering" (submit)="login($event)">
+    <ion-input
+      class="input"
+      color="light"
+      placeholder="MEMBER CODE"
+      name="memberCode"
+      [(ngModel)]="memberCode"
+    ></ion-input>
+    <ion-input
+      class="input"
+      color="light"
+      placeholder="PASSWORD"
+      name="password"
+      [(ngModel)]="password"
+    ></ion-input>
 
-<ion-content>
-
+    <ion-button
+      (click)="login($event)"
+      class="submit"
+      color="dark"
+      expand="full"
+      [disabled]="memberCode === '' || password === '' || loading"
+    >LOGIN
+    </ion-button>
+  </form>
 </ion-content>

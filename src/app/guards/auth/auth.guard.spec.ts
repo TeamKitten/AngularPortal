@@ -3,13 +3,15 @@ import {inject, TestBed} from '@angular/core/testing';
 import {AuthGuard} from './auth.guard';
 import {StorageService} from '../../services/storage/storage.service';
 import {Router} from '@angular/router';
+import {HttpClientModule} from '@angular/common/http';
 
 describe('AuthGuard', () => {
   let accessToken: string | null = null;
-  const router = jasmine.createSpyObj('router', ['navigate']);
+  const router = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientModule],
       providers: [
         AuthGuard,
         {
