@@ -1,18 +1,20 @@
-import {NgModule} from '@angular/core';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
-  },
-];
+import { IonicModule } from '@ionic/angular';
+
+import { MembersPageRoutingModule } from './members-routing.module';
+
+import { MembersPage } from './members.page';
 
 @NgModule({
   imports: [
-    RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    MembersPageRoutingModule
   ],
-  exports: [RouterModule]
+  declarations: [MembersPage]
 })
-export class MembersModule {
-}
+export class MembersPageModule {}

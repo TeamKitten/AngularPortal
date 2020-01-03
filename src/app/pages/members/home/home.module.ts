@@ -1,10 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {IonicModule} from '@ionic/angular';
+import {FormsModule} from '@angular/forms';
+import {RouterModule} from '@angular/router';
 
-import { HomePage } from './home.page';
+import {HomePage} from './home.page';
+import {ApiService} from '../../../services/api/api.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,8 +18,11 @@ import { HomePage } from './home.page';
         path: '',
         component: HomePage
       }
-    ])
+    ]),
+    HttpClientModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [ApiService]
 })
-export class HomePageModule {}
+export class HomePageModule {
+}

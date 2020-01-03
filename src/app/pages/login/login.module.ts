@@ -7,8 +7,8 @@ import {IonicModule} from '@ionic/angular';
 import {LoginPageRoutingModule} from './login-routing.module';
 
 import {LoginPage} from './login.page';
-import {AuthService} from '../../services/auth/auth.service';
 import {HttpClientModule} from '@angular/common/http';
+import {ApiService} from '../../services/api/api.service';
 
 @NgModule({
   imports: [
@@ -19,6 +19,6 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule
   ],
   declarations: [LoginPage],
-  providers: [AuthService]
+  providers: [ApiService]
 })
 export class LoginPageModule {}

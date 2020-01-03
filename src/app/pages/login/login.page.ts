@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {AuthService} from '../../services/auth/auth.service';
 import {ToastController} from '@ionic/angular';
 import {StorageService} from '../../services/storage/storage.service';
 import {Router} from '@angular/router';
+import {ApiService} from '../../services/api/api.service';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   initialized = false;
 
   constructor(
-    private authService: AuthService,
+    private apiService: ApiService,
     private storageService: StorageService,
     private router: Router,
     private toastCtrl: ToastController) {
@@ -35,7 +35,7 @@ export class LoginPage implements OnInit {
       event.preventDefault();
     }
     this.loading = true;
-    this.authService.authorize(this.memberCode, this.password)
+    this.apiService.authorize(this.memberCode, this.password)
       .subscribe(res => {
         this.storageService.setAccessToken(res.access_token);
         this.router.navigate(['/']);

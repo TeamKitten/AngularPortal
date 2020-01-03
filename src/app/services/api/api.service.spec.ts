@@ -1,16 +1,18 @@
 import {TestBed} from '@angular/core/testing';
 
-import {AuthService} from './auth.service';
+import {ApiService} from './api.service';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {AuthResponse} from '../../models/AuthResponse';
 import {Observable, of} from 'rxjs';
+import {Member} from '../../models/Member';
+import {leaderFixture} from '../../fixtures/leader';
 
-describe('AuthService', () => {
-  let service: AuthService;
-  let httpClientSpy: { post: jasmine.Spy };
+describe('ApiService', () => {
+  let service: ApiService;
+  let httpClientSpy: { post: jasmine.Spy, get: jasmine.Spy };
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['post']);
+    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get', 'post']);
     TestBed.configureTestingModule({
       providers: [
         {
@@ -19,7 +21,7 @@ describe('AuthService', () => {
         }
       ]
     });
-    service = TestBed.get(AuthService);
+    service = TestBed.get(ApiService);
   });
 
   it('should be created', () => {
@@ -41,6 +43,22 @@ describe('AuthService', () => {
       observer.error(expectedResponse);
     }));
     service.authorize('', '').subscribe(fail,
+      err => expect(err).toEqual(expectedResponse));
+  });
+
+  it('should get members successful', () => {
+    const expectedResponse: Member[] = [leaderFixture];
+    httpClientSpy.get.and.returnValue(of(expectedResponse));
+    service.getMembers().subscribe(resp => expect(resp).toEqual(expectedResponse),
+      fail);
+  });
+
+  it('should get members failed', () => {
+    const expectedResponse = new HttpErrorResponse({status: 500});
+    httpClientSpy.get.and.returnValue(new Observable(observer => {
+      observer.error(expectedResponse);
+    }));
+    service.getMembers().subscribe(fail,
       err => expect(err).toEqual(expectedResponse));
   });
 });
