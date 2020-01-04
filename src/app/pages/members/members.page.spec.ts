@@ -3,17 +3,25 @@ import {IonicModule} from '@ionic/angular';
 
 import {MembersPage} from './members.page';
 import {RouterTestingModule} from '@angular/router/testing';
+import {Router} from '@angular/router';
 
 describe('MembersPage', () => {
   let component: MembersPage;
   let fixture: ComponentFixture<MembersPage>;
+  const router = jasmine.createSpyObj<Router>('Router', ['navigate']);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MembersPage ],
+      declarations: [MembersPage],
       imports: [
         RouterTestingModule,
         IonicModule.forRoot()
+      ],
+      providers: [
+        {
+          provide: Router,
+          useValue: router
+        }
       ]
     }).compileComponents();
 
@@ -24,5 +32,10 @@ describe('MembersPage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('navigate should work', () => {
+    component.navigate('/');
+    expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 });
