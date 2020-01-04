@@ -14,7 +14,7 @@ describe('LoginPage', () => {
   let component: LoginPage;
   let fixture: ComponentFixture<LoginPage>;
   let apiServiceMock: Partial<ApiService>;
-  const router = jasmine.createSpyObj('router', ['navigate']);
+  const routerSpy = jasmine.createSpyObj('router', ['navigate']);
   const storageServiceSpy = jasmine.createSpyObj(
     'StorageService',
     ['setAccessToken', 'getAccessToken']
@@ -49,7 +49,7 @@ describe('LoginPage', () => {
         },
         {
           provide: Router,
-          useValue: router
+          useValue: routerSpy
         },
         {
           provide: StorageService,
@@ -87,7 +87,7 @@ describe('LoginPage', () => {
     expect(storageServiceSpy.setAccessToken)
       .toHaveBeenCalledWith('at');
     toastCtrlSpy.create.and.returnValue({present: () => undefined});
-    expect(router.navigate).toHaveBeenCalledWith(['/']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
   it('login should failed', () => {

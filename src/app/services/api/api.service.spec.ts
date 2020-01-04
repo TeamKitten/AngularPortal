@@ -15,7 +15,7 @@ import * as moment from 'moment';
 describe('ApiService', () => {
   let service: ApiService;
   let httpClientSpy: { post: jasmine.Spy, get: jasmine.Spy, put: jasmine.Spy };
-  const router = jasmine.createSpyObj('Router', ['navigate']);
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
   const toastCtrlSpy = jasmine.createSpyObj('ToastController', ['create']);
   const storageServiceSpy = jasmine.createSpyObj('StorageService', [
     'getAccessToken',
@@ -50,7 +50,7 @@ describe('ApiService', () => {
         },
         {
           provide: Router,
-          useValue: router
+          useValue: routerSpy
         },
         {
           provide: ToastController,
@@ -136,7 +136,7 @@ describe('ApiService', () => {
     const newService = new ApiService(
       httpClientSpy as any,
       storageServiceSpy,
-      router,
+      routerSpy,
       alertCtrlSpy,
       toastCtrlSpy
     );
@@ -148,7 +148,7 @@ describe('ApiService', () => {
       buttons: ['OK']
     });
     expect(storageServiceSpy.removeAccessToken).toHaveBeenCalledWith();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   }));
 
   it('updateBio', () => {

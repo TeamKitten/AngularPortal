@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api/api.service';
 import {Member} from '../../../models/Member';
+import {ModalController} from '@ionic/angular';
+import {MemberInfoModalComponent} from '../../../components/modals/member-info-modal/member-info-modal.component';
 
 @Component({
   selector: 'app-members-list',
@@ -10,7 +12,10 @@ import {Member} from '../../../models/Member';
 export class MembersListPage implements OnInit {
   members: Member[] = [];
 
-  constructor(private apiService: ApiService) {
+  constructor(
+    private apiService: ApiService,
+    private modalCtrl: ModalController
+  ) {
   }
 
   ngOnInit() {
@@ -19,4 +24,13 @@ export class MembersListPage implements OnInit {
     });
   }
 
+  async openMemberInfoModal(member: Member) {
+    const modal = await this.modalCtrl.create({
+      component: MemberInfoModalComponent,
+      componentProps: {
+        member
+      }
+    });
+    modal.present();
+  }
 }

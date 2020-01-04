@@ -1,7 +1,7 @@
 <ion-grid>
   <ion-row>
     <ion-col size-sm="12" size-lg="2" size-md="6" *ngFor="let m of members">
-      <ion-card>
+      <ion-card (click)="openMemberInfoModal(m)">
         <ion-card-content slot="start">
           <ion-avatar>
             <img class="avatar" [alt]="m.name" [src]="m.avatarUrl">

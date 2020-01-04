@@ -7,7 +7,7 @@ import {HttpClientModule} from '@angular/common/http';
 
 describe('AuthGuard', () => {
   let accessToken: string | null = null;
-  const router = jasmine.createSpyObj('Router', ['navigate']);
+  const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -20,7 +20,7 @@ describe('AuthGuard', () => {
         },
         {
           provide: Router,
-          useValue: router,
+          useValue: routerSpy,
         }
       ],
     });
@@ -34,6 +34,6 @@ describe('AuthGuard', () => {
   it('should not be passed', inject([AuthGuard], (guard: AuthGuard) => {
     accessToken = null;
     expect(guard.canActivate()).toBeFalsy();
-    expect(router.navigate).toHaveBeenCalledWith(['/login']);
+    expect(routerSpy.navigate).toHaveBeenCalledWith(['/login']);
   }));
 });

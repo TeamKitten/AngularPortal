@@ -12,13 +12,18 @@ import {ServiceWorkerModule} from '@angular/service-worker';
 import {environment} from '../environments/environment';
 import {BioModalComponent} from './components/modals/bio-modal/bio-modal.component';
 import {FormsModule} from '@angular/forms';
+import {MemberInfoModalComponent} from './components/modals/member-info-modal/member-info-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BioModalComponent
+    BioModalComponent,
+    MemberInfoModalComponent
   ],
-  entryComponents: [BioModalComponent],
+  entryComponents: [
+    BioModalComponent,
+    MemberInfoModalComponent
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
