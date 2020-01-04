@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
-import { MembersPage } from './members.page';
+import {MembersPage} from './members.page';
 
 const routes: Routes = [
   {
@@ -11,13 +11,18 @@ const routes: Routes = [
       {
         path: '',
         loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
+      },
+      {
+        path: 'you',
+        loadChildren: () => import('./you/you.module').then(m => m.YouPageModule)
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class MembersPageRoutingModule {}
+export class MembersPageRoutingModule {
+}

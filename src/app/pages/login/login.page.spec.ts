@@ -86,6 +86,7 @@ describe('LoginPage', () => {
     component.login();
     expect(storageServiceSpy.setAccessToken)
       .toHaveBeenCalledWith('at');
+    toastCtrlSpy.create.and.returnValue({present: () => undefined});
     expect(router.navigate).toHaveBeenCalledWith(['/']);
   });
 

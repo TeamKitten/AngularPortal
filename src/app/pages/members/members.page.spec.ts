@@ -1,14 +1,24 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule} from '@ionic/angular';
+import {IonicModule, MenuController} from '@ionic/angular';
 
 import {MembersPage} from './members.page';
 import {RouterTestingModule} from '@angular/router/testing';
-import {Router} from '@angular/router';
+import {Router, RouterEvent} from '@angular/router';
+import {ReplaySubject} from 'rxjs';
 
 describe('MembersPage', () => {
   let component: MembersPage;
   let fixture: ComponentFixture<MembersPage>;
-  const router = jasmine.createSpyObj<Router>('Router', ['navigate']);
+  const menuCtrl = jasmine.createSpyObj<MenuController>(
+    'MenuController',
+    ['close']
+  );
+  const eventSubject = new ReplaySubject<RouterEvent>(1);
+
+  const routerMock = {
+    navigate: jasmine.createSpy('navigate'),
+    events: eventSubject.asObservable()
+  };
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -20,7 +30,11 @@ describe('MembersPage', () => {
       providers: [
         {
           provide: Router,
-          useValue: router
+          useValue: routerMock
+        },
+        {
+          provide: MenuController,
+          useValue: menuCtrl
         }
       ]
     }).compileComponents();
@@ -36,6 +50,7 @@ describe('MembersPage', () => {
 
   it('navigate should work', () => {
     component.navigate('/');
-    expect(router.navigate).toHaveBeenCalledWith(['/']);
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/']);
+    expect(menuCtrl.close).toHaveBeenCalled();
   });
 });
