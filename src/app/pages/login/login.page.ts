@@ -30,10 +30,7 @@ export class LoginPage implements OnInit {
     this.initialized = true;
   }
 
-  login(event?: Event) {
-    if (event) {
-      event.preventDefault();
-    }
+  login() {
     this.loading = true;
     this.apiService.authorize(this.memberCode, this.password)
       .subscribe(res => {

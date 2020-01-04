@@ -2,7 +2,7 @@
   <header class="logoWrapper flexCentering">
     <img class="logo" src="/assets/logo.svg" alt="logo">
   </header>
-  <form class="form flexCentering" (submit)="login($event)">
+  <form class="form flexCentering" (ngSubmit)="login()">
     <ion-input
       class="input"
       color="light"
@@ -20,7 +20,8 @@
     ></ion-input>
 
     <ion-button
-      (click)="login($event)"
+      (click)="login()"
+      type="submit"
       class="submit"
       color="dark"
       expand="full"
