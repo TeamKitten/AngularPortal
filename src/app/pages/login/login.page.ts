@@ -36,6 +36,7 @@ export class LoginPage implements OnInit {
       .subscribe(res => {
         this.storageService.setAccessToken(res.access_token);
         this.router.navigate(['/']);
+        this.password = '';
       }, async () => {
         const toast = await this.toastCtrl.create({
           message: 'ログインに失敗しました。',

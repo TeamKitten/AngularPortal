@@ -1,15 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {ModalController} from '@ionic/angular';
+import {BioModalComponent} from '../../../components/modals/bio-modal/bio-modal.component';
 
 @Component({
   selector: 'app-you',
   templateUrl: './you.page.html',
   styleUrls: ['./you.page.scss'],
 })
-export class YouPage implements OnInit {
+export class YouPage {
 
-  constructor() { }
+  constructor(private modalCtrl: ModalController) {
+  }
 
-  ngOnInit() {
+  async openChangeBioModal() {
+    const modal = await this.modalCtrl.create({
+      component: BioModalComponent
+    });
+    return await modal.present();
   }
 
 }

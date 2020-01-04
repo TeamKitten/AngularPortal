@@ -15,4 +15,8 @@ export class StorageService {
   getAccessToken(): string | null {
     return localStorage.getItem(ACCESS_TOKEN_KEY);
   }
+
+  removeAccessToken(): void {
+    localStorage.removeItem(ACCESS_TOKEN_KEY);
+  }
 }

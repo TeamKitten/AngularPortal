@@ -1,0 +1,30 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>自己紹介変更</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">閉じる</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-textarea
+      rows="6"
+      cols="20"
+      maxlength="140"
+      [placeholder]="currentBio"
+      name="bio"
+      [(ngModel)]="bio"
+    ></ion-textarea>
+  </ion-item>
+  <ion-button
+    type="submit"
+    color="primary"
+    expand="full"
+    (click)="updateBio()"
+    [disabled]="!bio.length"
+  >変更
+  </ion-button>
+  <p>※自己紹介は140文字以内です。</p>
+</ion-content>
