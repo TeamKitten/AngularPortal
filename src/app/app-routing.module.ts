@@ -9,7 +9,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: () => import('./pages/members/members.module').then( m => m.MembersPageModule)
+    loadChildren: () => import('./pages/members/members.module').then(m => m.MembersPageModule),
+    canActivate: [AuthGuard]
   },
 ];
 
