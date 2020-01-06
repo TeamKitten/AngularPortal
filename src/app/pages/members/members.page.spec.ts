@@ -4,7 +4,9 @@ import {IonicModule, MenuController} from '@ionic/angular';
 import {MembersPage} from './members.page';
 import {RouterTestingModule} from '@angular/router/testing';
 import {Router, RouterEvent} from '@angular/router';
-import {ReplaySubject} from 'rxjs';
+import {of, ReplaySubject} from 'rxjs';
+import {leaderFixture} from '../../fixtures/leader';
+import {ApiService} from '../../services/api/api.service';
 
 describe('MembersPage', () => {
   let component: MembersPage;
@@ -14,6 +16,7 @@ describe('MembersPage', () => {
     ['close']
   );
   const eventSubject = new ReplaySubject<RouterEvent>(1);
+  const apiServiceSpy = jasmine.createSpyObj('ApiService', ['decodeMyAccessToken', 'getMember']);
 
   const routerMock = {
     navigate: jasmine.createSpy('navigate'),
@@ -21,6 +24,8 @@ describe('MembersPage', () => {
   };
 
   beforeEach(async(() => {
+    apiServiceSpy.getMember.and.callFake(() => of(leaderFixture));
+    apiServiceSpy.decodeMyAccessToken.and.callFake(() => leaderFixture.code);
     TestBed.configureTestingModule({
       declarations: [MembersPage],
       imports: [
@@ -35,6 +40,10 @@ describe('MembersPage', () => {
         {
           provide: MenuController,
           useValue: menuCtrl
+        },
+        {
+          provide: ApiService,
+          useValue: apiServiceSpy
         }
       ]
     }).compileComponents();

@@ -177,4 +177,10 @@ describe('ApiService', () => {
     });
     expect(err).toEqual(errObj);
   });
+
+  it('getAuditLog', () => {
+    httpClientSpy.get.and.returnValue(of([]));
+    service.getAuditLogs().subscribe(resp => expect(resp).toEqual([]),
+      fail);
+  });
 });

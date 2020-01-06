@@ -6,14 +6,18 @@ import {IonicModule} from '@ionic/angular';
 import {MembersPageRoutingModule} from './members-routing.module';
 
 import {MembersPage} from './members.page';
+import {HttpClientModule} from '@angular/common/http';
+import {ApiService} from '../../services/api/api.service';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    MembersPageRoutingModule
+    MembersPageRoutingModule,
+    HttpClientModule
   ],
-  declarations: [MembersPage]
+  declarations: [MembersPage],
+  providers: [ApiService]
 })
 export class MembersPageModule {
 }

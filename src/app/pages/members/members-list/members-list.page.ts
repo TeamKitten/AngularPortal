@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api/api.service';
 import {Member} from '../../../models/Member';
-import {ModalController} from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import {MemberInfoModalComponent} from '../../../components/modals/member-info-modal/member-info-modal.component';
 
 @Component({
@@ -14,14 +14,14 @@ export class MembersListPage implements OnInit {
 
   constructor(
     private apiService: ApiService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private loadingCtrl: LoadingController
   ) {
   }
 
   ngOnInit() {
-    this.apiService.getMembers().subscribe(members => {
-      this.members = members;
-    });
+    this.presentLoading().then(() =>
+      this.getMembers());
   }
 
   async openMemberInfoModal(member: Member) {
@@ -32,5 +32,19 @@ export class MembersListPage implements OnInit {
       }
     });
     modal.present();
+  }
+
+  private getMembers() {
+    this.apiService.getMembers().subscribe(members => {
+      this.members = members;
+      this.loadingCtrl.dismiss();
+    });
+  }
+
+  private async presentLoading() {
+    const loading = await this.loadingCtrl.create({
+      message: 'お待ちください...'
+    });
+    return loading.present();
   }
 }

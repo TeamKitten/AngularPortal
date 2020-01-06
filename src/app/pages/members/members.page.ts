@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from '@angular/router';
 import {MenuController} from '@ionic/angular';
+import {ApiService} from '../../services/api/api.service';
 
 @Component({
   selector: 'app-members',
@@ -9,14 +10,18 @@ import {MenuController} from '@ionic/angular';
 })
 export class MembersPage implements OnInit {
   currentTitle = '';
+  isExecutive = false;
 
   constructor(
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private apiService: ApiService
   ) {
   }
 
   ngOnInit(): void {
+    this.apiService.getMember(this.apiService.decodeMyAccessToken().sub).subscribe(me =>
+      this.isExecutive = me.code.split('-')[0] !== 'MEM');
     this.initializeCurrentTitle();
   }
 
@@ -37,6 +42,9 @@ export class MembersPage implements OnInit {
             break;
           case '/members':
             this.currentTitle = 'メンバー';
+            break;
+          case '/audit':
+            this.currentTitle = '監査';
             break;
           default:
             return '';

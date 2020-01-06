@@ -10,6 +10,7 @@ import * as moment from 'moment';
 import {Router} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
 import {catchError} from 'rxjs/operators';
+import {AuditLog} from '../../models/AuditLog';
 
 @Injectable({
   providedIn: 'root'
@@ -83,6 +84,17 @@ export class ApiService {
       },
     }).pipe(catchError(err => {
       return this.processApiError(err);
+    }));
+  }
+
+  getAuditLogs(): Observable<AuditLog[]> {
+    this.confirmJwtExp();
+    return this.http.get<AuditLog[]>(`${API_ENDPOINT}/audit`, {
+      headers: {
+        Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      }
+    }).pipe(catchError(err => {
+      throw this.processApiError(err);
     }));
   }
 

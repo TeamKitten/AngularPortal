@@ -6,18 +6,14 @@ import {IonicModule} from '@ionic/angular';
 import {YouPageRoutingModule} from './you-routing.module';
 
 import {YouPage} from './you.page';
-import {ApiService} from '../../../services/api/api.service';
-import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
     CommonModule,
     IonicModule,
-    YouPageRoutingModule,
-    HttpClientModule
+    YouPageRoutingModule
   ],
-  declarations: [YouPage],
-  providers: [ApiService]
+  declarations: [YouPage]
 })
 export class YouPageModule {
 }

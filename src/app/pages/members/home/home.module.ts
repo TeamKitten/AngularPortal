@@ -4,8 +4,6 @@ import {IonicModule} from '@ionic/angular';
 import {RouterModule} from '@angular/router';
 
 import {HomePage} from './home.page';
-import {ApiService} from '../../../services/api/api.service';
-import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,11 +14,9 @@ import {HttpClientModule} from '@angular/common/http';
         path: '',
         component: HomePage
       }
-    ]),
-    HttpClientModule
+    ])
   ],
-  declarations: [HomePage],
-  providers: [ApiService]
+  declarations: [HomePage]
 })
 export class HomePageModule {
 }
