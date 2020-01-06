@@ -39,6 +39,7 @@ describe('AppComponent', () => {
     splashScreenSpy = jasmine.createSpyObj('SplashScreen', ['hide']);
     platformReadySpy = Promise.resolve();
     platformSpy = jasmine.createSpyObj('Platform', {ready: platformReadySpy});
+    alertCtrlSpy.create.and.callFake(() => Promise.resolve({present: () => undefined}));
     swu = new MockSwUpdate(true);
 
     TestBed.configureTestingModule({

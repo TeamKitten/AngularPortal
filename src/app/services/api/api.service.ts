@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
-import {Observable, ObservableInput, of} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {Observable, ObservableInput} from 'rxjs';
 import {AuthResponse} from '../../models/AuthResponse';
 import {API_ENDPOINT} from '../../constants';
 import {Member} from '../../models/Member';
@@ -64,6 +64,19 @@ export class ApiService {
     this.confirmJwtExp();
     return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
       bio
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      },
+    }).pipe(catchError(err => {
+      return this.processApiError(err);
+    }));
+  }
+
+  updateScreenName(code: string, screenName: string): Observable<Member> {
+    this.confirmJwtExp();
+    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+      screenName
     }, {
       headers: {
         Authorization: `Bearer ${this.storageService.getAccessToken()}`

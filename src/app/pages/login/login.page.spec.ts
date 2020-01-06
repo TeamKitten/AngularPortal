@@ -39,6 +39,7 @@ describe('LoginPage', () => {
         });
       }
     };
+    toastCtrlSpy.create.and.returnValue({present: () => undefined});
     TestBed.configureTestingModule({
       declarations: [LoginPage],
       imports: [IonicModule.forRoot(), FormsModule],
@@ -86,7 +87,6 @@ describe('LoginPage', () => {
     component.login();
     expect(storageServiceSpy.setAccessToken)
       .toHaveBeenCalledWith('at');
-    toastCtrlSpy.create.and.returnValue({present: () => undefined});
     expect(routerSpy.navigate).toHaveBeenCalledWith(['/']);
   });
 
@@ -95,7 +95,6 @@ describe('LoginPage', () => {
     component.password = 'foo';
     fixture.detectChanges();
     component.login();
-    toastCtrlSpy.create.and.returnValue({present: () => undefined});
     expect(toastCtrlSpy.create).toHaveBeenCalled();
   });
 });

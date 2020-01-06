@@ -13,16 +13,19 @@ import {environment} from '../environments/environment';
 import {BioModalComponent} from './components/modals/bio-modal/bio-modal.component';
 import {FormsModule} from '@angular/forms';
 import {MemberInfoModalComponent} from './components/modals/member-info-modal/member-info-modal.component';
+import {UpdateScreenNameModalComponent} from './components/modals/update-screen-name-modal/update-screen-name-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BioModalComponent,
-    MemberInfoModalComponent
+    MemberInfoModalComponent,
+    UpdateScreenNameModalComponent
   ],
   entryComponents: [
     BioModalComponent,
-    MemberInfoModalComponent
+    MemberInfoModalComponent,
+    UpdateScreenNameModalComponent
   ],
   imports: [
     BrowserModule,

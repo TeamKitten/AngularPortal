@@ -159,6 +159,14 @@ describe('ApiService', () => {
       });
   });
 
+  it('updateScreenName', () => {
+    httpClientSpy.put.and.returnValue(of(leaderFixture));
+    service.updateScreenName(leaderFixture.code, 'MUR')
+      .subscribe(res => {
+        expect(res).toBe(leaderFixture);
+      });
+  });
+
   it('processApiError', () => {
     const errObj = new HttpErrorResponse({status: 500});
     const err = (service as any).processApiError(errObj);

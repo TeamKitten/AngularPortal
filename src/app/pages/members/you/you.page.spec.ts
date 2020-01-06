@@ -36,4 +36,9 @@ describe('YouPage', () => {
     component.openChangeBioModal();
     expect(modalCtrlSpy.create).toHaveBeenCalled();
   });
+
+  it('openChangeScreenNameModal', () => {
+    component.openChangeScreenNameModal();
+    expect(modalCtrlSpy.create).toHaveBeenCalled();
+  });
 });

@@ -1,0 +1,28 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>スクリーンネーム変更</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">閉じる</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input
+      maxlength="140"
+      [placeholder]="currentScreenName"
+      name="screenName"
+      [(ngModel)]="screenName"
+    ></ion-input>
+  </ion-item>
+  <ion-button
+    type="submit"
+    color="primary"
+    expand="full"
+    (click)="updateScreenName()"
+    [disabled]="!screenName.length || screenName.includes('-')"
+  >変更
+  </ion-button>
+  <p>※スクリーンネームは公開されます。ハイフンは使用できません。</p>
+</ion-content>
