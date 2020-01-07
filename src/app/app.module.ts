@@ -14,18 +14,24 @@ import {BioModalComponent} from './components/modals/bio-modal/bio-modal.compone
 import {FormsModule} from '@angular/forms';
 import {MemberInfoModalComponent} from './components/modals/member-info-modal/member-info-modal.component';
 import {UpdateScreenNameModalComponent} from './components/modals/update-screen-name-modal/update-screen-name-modal.component';
+import {UpdatePasswordModalComponent} from './components/modals/update-password-modal/update-password-modal.component';
+import {UpdateRoleModalComponent} from './components/modals/update-role-modal/update-role-modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     BioModalComponent,
     MemberInfoModalComponent,
-    UpdateScreenNameModalComponent
+    UpdateScreenNameModalComponent,
+    UpdatePasswordModalComponent,
+    UpdateRoleModalComponent
   ],
   entryComponents: [
     BioModalComponent,
     MemberInfoModalComponent,
-    UpdateScreenNameModalComponent
+    UpdateScreenNameModalComponent,
+    UpdatePasswordModalComponent,
+    UpdateRoleModalComponent
   ],
   imports: [
     BrowserModule,

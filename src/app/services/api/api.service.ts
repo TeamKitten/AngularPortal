@@ -87,6 +87,32 @@ export class ApiService {
     }));
   }
 
+  updateRole(code: string, role: string): Observable<Member> {
+    this.confirmJwtExp();
+    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+      role
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      },
+    }).pipe(catchError(err => {
+      return this.processApiError(err);
+    }));
+  }
+
+  updatePassword(code: string, password: string): Observable<Member> {
+    this.confirmJwtExp();
+    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+      password
+    }, {
+      headers: {
+        Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      },
+    }).pipe(catchError(err => {
+      return this.processApiError(err);
+    }));
+  }
+
   getAuditLogs(offset: number = 0, limit: number = AUDIT_PER_REQUEST_LIMIT): Observable<AuditLog[]> {
     this.confirmJwtExp();
     return this.http.get<AuditLog[]>(`${API_ENDPOINT}/audit`, {

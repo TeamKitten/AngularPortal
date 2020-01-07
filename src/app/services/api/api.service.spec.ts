@@ -167,6 +167,22 @@ describe('ApiService', () => {
       });
   });
 
+  it('updateRole', () => {
+    httpClientSpy.put.and.returnValue(of(leaderFixture));
+    service.updateRole(leaderFixture.code, 'MUR')
+      .subscribe(res => {
+        expect(res).toBe(leaderFixture);
+      });
+  });
+
+  it('updatePassword', () => {
+    httpClientSpy.put.and.returnValue(of(leaderFixture));
+    service.updatePassword(leaderFixture.code, 'MUR')
+      .subscribe(res => {
+        expect(res).toBe(leaderFixture);
+      });
+  });
+
   it('processApiError', () => {
     const errObj = new HttpErrorResponse({status: 500});
     const err = (service as any).processApiError(errObj);

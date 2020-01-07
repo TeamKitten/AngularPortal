@@ -1,0 +1,28 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>担当変更</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">閉じる</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-input
+      minlength="6"
+      [placeholder]="currentRole"
+      name="password"
+      [(ngModel)]="role"
+    ></ion-input>
+  </ion-item>
+  <ion-button
+    type="submit"
+    color="primary"
+    expand="full"
+    (click)="updateRole()"
+    [disabled]="!role.length"
+  >変更
+  </ion-button>
+  <b *ngIf="force">担当はいたずら目的で変更しないでください。</b>
+</ion-content>

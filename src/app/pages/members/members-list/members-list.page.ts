@@ -32,6 +32,11 @@ export class MembersListPage implements OnInit {
       }
     });
     modal.present();
+    modal.onDidDismiss().then(({data}) => {
+      if (data.updated) {
+        this.getMembers();
+      }
+    });
   }
 
   private getMembers() {

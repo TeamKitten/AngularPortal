@@ -8,12 +8,13 @@ import {alternativeExecutiveFixture, executiveFixture, leaderFixture} from '../.
 describe('MemberInfoModalComponent', () => {
   let component: MemberInfoModalComponent;
   let fixture: ComponentFixture<MemberInfoModalComponent>;
-  const modalCtrlSpy = jasmine.createSpyObj('ModalController', ['dismiss']);
+  const modalCtrlSpy = jasmine.createSpyObj('ModalController', ['dismiss', 'create']);
   const apiServiceSpy = jasmine.createSpyObj('ApiService', ['decodeMyAccessToken']);
   const excSub = 'EXC-31415926535897932384626433832795028841971';
 
   beforeEach(async(() => {
     apiServiceSpy.decodeMyAccessToken.and.returnValue({sub: excSub});
+    modalCtrlSpy.create.and.callFake(() => ({present: () => Promise.resolve()}));
     TestBed.configureTestingModule({
       declarations: [MemberInfoModalComponent],
       imports: [IonicModule.forRoot()],
@@ -61,5 +62,15 @@ describe('MemberInfoModalComponent', () => {
       (component as any).initializeShowAdminMenu();
       expect(component.showAdminMenu).toBeTruthy();
     });
+  });
+
+  it('updatePasswordModal', () => {
+    component.updatePasswordModal();
+    expect(modalCtrlSpy.create).toHaveBeenCalled();
+  });
+
+  it('updateRoleModal', () => {
+    component.updateRoleModal();
+    expect(modalCtrlSpy.create).toHaveBeenCalled();
   });
 });
