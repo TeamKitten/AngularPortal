@@ -1,24 +1,26 @@
-<ion-refresher slot="fixed" (ionRefresh)="checkPermissionAndGetAuditLogs($event)">
-  <ion-refresher-content></ion-refresher-content>
-</ion-refresher>
+<ng-container *ngIf="logs.length; else skeleton">
+  <ion-refresher slot="fixed" (ionRefresh)="checkPermissionAndGetAuditLogs($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-<ion-list *ngFor="let log of logs">
-  <ion-item>
-    <ion-label>
-      <h2>{{log.operation.name}}({{log.operation.operationCode}})</h2>
-      <h3 *ngIf="log.requester; else noRequester"><b>リクエスタ:</b> {{log.requester.name}}
-        ({{log.requester.code}})</h3>
-      <h3 *ngIf="log.target; else noTarget"><b>ターゲット:</b> {{log.target.name}}({{log.target.code}})</h3>
-      <h3><b>記録日時:</b> {{parseCreatedAt(log.createdAt)}}</h3>
-      <ng-template #noRequester><h3><b>リクエスタ:</b> なし</h3></ng-template>
-      <ng-template #noTarget><h3><b>ターゲット:</b> なし</h3></ng-template>
-    </ion-label>
-  </ion-item>
-</ion-list>
-<ion-infinite-scroll threshold="100px" *ngIf="!allFetched" (ionInfinite)="addAuditLogs($event)">
-  <ion-infinite-scroll-content loadingSpinner="circles">
-  </ion-infinite-scroll-content>
-</ion-infinite-scroll>
+  <ion-list *ngFor="let log of logs">
+    <ion-item>
+      <ion-label>
+        <h2>{{log.operation.name}}({{log.operation.operationCode}})</h2>
+        <h3 *ngIf="log.requester; else noRequester"><b>リクエスタ:</b> {{log.requester.name}}
+          ({{log.requester.code}})</h3>
+        <h3 *ngIf="log.target; else noTarget"><b>ターゲット:</b> {{log.target.name}}({{log.target.code}})</h3>
+        <h3><b>記録日時:</b> {{parseCreatedAt(log.createdAt)}}</h3>
+        <ng-template #noRequester><h3><b>リクエスタ:</b> なし</h3></ng-template>
+        <ng-template #noTarget><h3><b>ターゲット:</b> なし</h3></ng-template>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  <ion-infinite-scroll threshold="100px" *ngIf="!allFetched" (ionInfinite)="addAuditLogs($event)">
+    <ion-infinite-scroll-content loadingSpinner="circles">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+</ng-container>
 
 <ng-template #skeleton>
   <ion-list>
