@@ -53,7 +53,7 @@ export class AuditPage implements OnInit {
   addAuditLogs(event: Event) {
     this.apiService.getAuditLogs(this.currentCursor).subscribe(logs => {
       logs.forEach(log => {
-        this.logs.unshift(log);
+        this.logs.push(log);
       });
       (event.target as any).complete();
       if (logs.length) {
