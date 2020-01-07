@@ -4,6 +4,7 @@ import {ApiService} from '../../../services/api/api.service';
 import {ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {AUDIT_PER_REQUEST_LIMIT} from '../../../constants';
+import * as moment from 'moment-timezone';
 
 @Component({
   selector: 'app-audit',
@@ -62,5 +63,9 @@ export class AuditPage implements OnInit {
         this.allFetched = true;
       }
     });
+  }
+
+  parseCreatedAt(createdAt: string) {
+    return moment(createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm:ss');
   }
 }

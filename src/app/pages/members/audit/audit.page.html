@@ -9,6 +9,7 @@
       <h3 *ngIf="log.requester; else noRequester"><b>リクエスタ:</b> {{log.requester.name}}
         ({{log.requester.code}})</h3>
       <h3 *ngIf="log.target; else noTarget"><b>ターゲット:</b> {{log.target.name}}({{log.target.code}})</h3>
+      <h3><b>記録日時:</b> {{parseCreatedAt(log.createdAt)}}</h3>
       <ng-template #noRequester><h3><b>リクエスタ:</b> なし</h3></ng-template>
       <ng-template #noTarget><h3><b>ターゲット:</b> なし</h3></ng-template>
     </ion-label>
@@ -31,6 +32,9 @@
         </h3>
         <h3>
           <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        </h3>
+        <h3>
+          <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
         </h3>
       </ion-label>
     </ion-item>
