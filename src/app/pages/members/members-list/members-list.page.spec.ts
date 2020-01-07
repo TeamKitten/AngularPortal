@@ -1,5 +1,5 @@
-import {async, ComponentFixture, fakeAsync, TestBed, tick} from '@angular/core/testing';
-import {IonicModule, LoadingController, ModalController} from '@ionic/angular';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {IonicModule, ModalController} from '@ionic/angular';
 
 import {MembersListPage} from './members-list.page';
 import {ApiService} from '../../../services/api/api.service';
@@ -11,14 +11,10 @@ describe('MembersListPage', () => {
   let fixture: ComponentFixture<MembersListPage>;
   const apiServiceSpy = jasmine.createSpyObj('ApiService', ['getMembers']);
   const modalCtrlSpy = jasmine.createSpyObj('ModalController', ['create']);
-  const loadingCtrlSpy = jasmine.createSpyObj('LoadingController', ['create', 'dismiss']);
 
   beforeEach(async(() => {
     apiServiceSpy.getMembers.and.callFake(() => of([leaderFixture]));
     modalCtrlSpy.create.and.callFake(() => Promise.resolve({
-      present: () => Promise.resolve()
-    }));
-    loadingCtrlSpy.create.and.callFake(() => Promise.resolve({
       present: () => Promise.resolve()
     }));
     TestBed.configureTestingModule({
@@ -33,10 +29,6 @@ describe('MembersListPage', () => {
           provide: ModalController,
           useValue: modalCtrlSpy
         },
-        {
-          provide: LoadingController,
-          useValue: loadingCtrlSpy
-        }
       ]
     }).compileComponents();
 
@@ -63,14 +55,5 @@ describe('MembersListPage', () => {
     (component as any).getMembers();
     expect(apiServiceSpy.getMembers).toHaveBeenCalled();
     expect(component.members).toEqual([leaderFixture]);
-    expect(loadingCtrlSpy.dismiss).toHaveBeenCalled();
   });
-
-  it('presentLoading', fakeAsync(() => {
-    (component as any).presentLoading();
-    tick();
-    expect(loadingCtrlSpy.create).toHaveBeenCalledWith({
-      message: 'お待ちください...'
-    });
-  }));
 });

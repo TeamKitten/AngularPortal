@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, ObservableInput} from 'rxjs';
 import {AuthResponse} from '../../models/AuthResponse';
-import {API_ENDPOINT} from '../../constants';
+import {API_ENDPOINT, AUDIT_PER_REQUEST_LIMIT} from '../../constants';
 import {Member} from '../../models/Member';
 import {StorageService} from '../storage/storage.service';
 import {JwtPayload} from '../../models/JwtPayload';
@@ -87,11 +87,15 @@ export class ApiService {
     }));
   }
 
-  getAuditLogs(): Observable<AuditLog[]> {
+  getAuditLogs(offset: number = 0, limit: number = AUDIT_PER_REQUEST_LIMIT): Observable<AuditLog[]> {
     this.confirmJwtExp();
     return this.http.get<AuditLog[]>(`${API_ENDPOINT}/audit`, {
       headers: {
         Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      },
+      params: {
+        offset: offset.toString(),
+        limit: limit.toString()
       }
     }).pipe(catchError(err => {
       throw this.processApiError(err);

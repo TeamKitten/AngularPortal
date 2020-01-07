@@ -1,5 +1,5 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
-import {IonicModule, LoadingController} from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
 import {AuditPage} from './audit.page';
 import {ApiService} from '../../../services/api/api.service';
@@ -19,9 +19,6 @@ describe('AuditPage', () => {
   const routerSpy = jasmine.createSpyObj('Router', ['navigate']);
 
   beforeEach(async(() => {
-    loadingCtrlSpy.create.and.callFake(() => Promise.resolve({
-      present: () => Promise.resolve()
-    }));
     apiServiceSpy.getMember.and.callFake(() => of(leaderFixture));
     apiServiceSpy.decodeMyAccessToken.and.callFake(() => leaderFixture.code);
     apiServiceSpy.getAuditLogs.and.callFake(() => of([]));
@@ -29,10 +26,6 @@ describe('AuditPage', () => {
       declarations: [AuditPage],
       imports: [IonicModule.forRoot()],
       providers: [
-        {
-          provide: LoadingController,
-          useValue: loadingCtrlSpy
-        },
         {
           provide: ApiService,
           useValue: apiServiceSpy

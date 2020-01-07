@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api/api.service';
 import {Member} from '../../../models/Member';
-import {LoadingController, ModalController} from '@ionic/angular';
+import {ModalController} from '@ionic/angular';
 import {MemberInfoModalComponent} from '../../../components/modals/member-info-modal/member-info-modal.component';
 
 @Component({
@@ -11,17 +11,17 @@ import {MemberInfoModalComponent} from '../../../components/modals/member-info-m
 })
 export class MembersListPage implements OnInit {
   members: Member[] = [];
+  emptyArrayForSkeleton: number[] = [];
 
   constructor(
     private apiService: ApiService,
-    private modalCtrl: ModalController,
-    private loadingCtrl: LoadingController
+    private modalCtrl: ModalController
   ) {
   }
 
   ngOnInit() {
-    this.presentLoading().then(() =>
-      this.getMembers());
+    this.emptyArrayForSkeleton = new Array(10).fill(null).map((_, i) => i);
+    this.getMembers();
   }
 
   async openMemberInfoModal(member: Member) {
@@ -37,14 +37,6 @@ export class MembersListPage implements OnInit {
   private getMembers() {
     this.apiService.getMembers().subscribe(members => {
       this.members = members;
-      this.loadingCtrl.dismiss();
     });
-  }
-
-  private async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'お待ちください...'
-    });
-    return loading.present();
   }
 }

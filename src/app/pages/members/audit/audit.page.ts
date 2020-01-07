@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {AuditLog} from '../../../models/AuditLog';
 import {ApiService} from '../../../services/api/api.service';
-import {LoadingController, ToastController} from '@ionic/angular';
+import {ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
+import {AUDIT_PER_REQUEST_LIMIT} from '../../../constants';
 
 @Component({
   selector: 'app-audit',
@@ -11,27 +12,23 @@ import {Router} from '@angular/router';
 })
 export class AuditPage implements OnInit {
   logs: AuditLog[] = [];
+  emptyArrayForSkeleton: number[] = [];
+  allFetched = false;
+  private currentCursor = AUDIT_PER_REQUEST_LIMIT;
 
   constructor(
     private apiService: ApiService,
     private toastCtrl: ToastController,
-    private router: Router,
-    private loadingCtrl: LoadingController) {
+    private router: Router) {
   }
+
 
   ngOnInit() {
-    this.presentLoading().then(() =>
-      this.checkPermissionAndGetAuditLogs());
+    this.emptyArrayForSkeleton = new Array(10).fill(null).map((_, i) => i);
+    this.checkPermissionAndGetAuditLogs();
   }
 
-  private async presentLoading() {
-    const loading = await this.loadingCtrl.create({
-      message: 'お待ちください...'
-    });
-    return loading.present();
-  }
-
-  private checkPermissionAndGetAuditLogs() {
+  checkPermissionAndGetAuditLogs(event?: Event) {
     this.apiService.getMember(this.apiService.decodeMyAccessToken().sub).subscribe(async me => {
       if (me.code.split('-')[0] === 'MEM') {
         this.router.navigate(['/']);
@@ -45,8 +42,25 @@ export class AuditPage implements OnInit {
       }
       this.apiService.getAuditLogs().subscribe(logs => {
         this.logs = logs;
-        this.loadingCtrl.dismiss();
+        this.allFetched = false;
+        if (event) {
+          (event.target as any).complete();
+        }
       });
+    });
+  }
+
+  addAuditLogs(event: Event) {
+    this.apiService.getAuditLogs(this.currentCursor).subscribe(logs => {
+      logs.forEach(log => {
+        this.logs.unshift(log);
+      });
+      (event.target as any).complete();
+      if (logs.length) {
+        this.currentCursor = this.currentCursor + AUDIT_PER_REQUEST_LIMIT;
+      } else {
+        this.allFetched = true;
+      }
     });
   }
 }
