@@ -27,7 +27,12 @@
               },
               {
                 "glob": "_redirects",
-                "input": "src/",
+                "input": "src/static/",
+                "output": "/"
+              },
+              {
+                "glob": "apple-touch-icon.png",
+                "input": "src/static/",
                 "output": "/"
               },
               {
@@ -116,7 +121,12 @@
               },
               {
                 "glob": "_redirects",
-                "input": "src/",
+                "input": "src/static/",
+                "output": "/"
+              },
+              {
+                "glob": "apple-touch-icon.png",
+                "input": "src/static/",
                 "output": "/"
               },
               {
