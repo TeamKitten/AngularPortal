@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {ACCESS_TOKEN_KEY} from '../../constants';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,14 +9,14 @@ export class StorageService {
   }
 
   setAccessToken(token: string): void {
-    localStorage.setItem(ACCESS_TOKEN_KEY, token);
+    localStorage.setItem(environment.ACCESS_TOKEN_KEY, token);
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem(ACCESS_TOKEN_KEY);
+    return localStorage.getItem(environment.ACCESS_TOKEN_KEY);
   }
 
   removeAccessToken(): void {
-    localStorage.removeItem(ACCESS_TOKEN_KEY);
+    localStorage.removeItem(environment.ACCESS_TOKEN_KEY);
   }
 }
