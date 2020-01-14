@@ -3,7 +3,7 @@ import {AuditLog} from '../../../models/AuditLog';
 import {ApiService} from '../../../services/api/api.service';
 import {ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
-import {AUDIT_PER_REQUEST_LIMIT} from '../../../constants';
+import {environment} from '../../../../environments/environment';
 import * as moment from 'moment-timezone';
 
 @Component({
@@ -15,7 +15,7 @@ export class AuditPage implements OnInit {
   logs: AuditLog[] = [];
   emptyArrayForSkeleton: number[] = [];
   allFetched = false;
-  private currentCursor = AUDIT_PER_REQUEST_LIMIT;
+  private currentCursor = environment.AUDIT_PER_REQUEST_LIMIT;
 
   constructor(
     private apiService: ApiService,
@@ -58,7 +58,7 @@ export class AuditPage implements OnInit {
       });
       (event.target as any).complete();
       if (logs.length) {
-        this.currentCursor = this.currentCursor + AUDIT_PER_REQUEST_LIMIT;
+        this.currentCursor = this.currentCursor + environment.AUDIT_PER_REQUEST_LIMIT;
       } else {
         this.allFetched = true;
       }

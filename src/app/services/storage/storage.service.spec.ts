@@ -1,7 +1,7 @@
 import {TestBed} from '@angular/core/testing';
 
 import {StorageService} from './storage.service';
-import {ACCESS_TOKEN_KEY} from '../../constants';
+import {environment} from '../../../environments/environment';
 
 describe('StorageService', () => {
   let service: StorageService;
@@ -40,7 +40,7 @@ describe('StorageService', () => {
   });
 
   it('getAccessToken', () => {
-    localStorage.setItem(ACCESS_TOKEN_KEY, 'at');
+    localStorage.setItem(environment.ACCESS_TOKEN_KEY, 'at');
     expect(service.getAccessToken()).toBe('at');
   });
 

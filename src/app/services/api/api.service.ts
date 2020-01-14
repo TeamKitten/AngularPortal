@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable, ObservableInput} from 'rxjs';
 import {AuthResponse} from '../../models/AuthResponse';
-import {API_ENDPOINT, AUDIT_PER_REQUEST_LIMIT} from '../../constants';
+import {environment} from '../../../environments/environment';
 import {Member} from '../../models/Member';
 import {StorageService} from '../storage/storage.service';
 import {JwtPayload} from '../../models/JwtPayload';
@@ -26,7 +26,7 @@ export class ApiService {
   }
 
   authorize(username: string, password: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${API_ENDPOINT}/auth`, {
+    return this.http.post<AuthResponse>(`${environment.API_ENDPOINT}/auth`, {
       username,
       password
     });
@@ -34,7 +34,7 @@ export class ApiService {
 
   getMembers(): Observable<Member[]> {
     this.confirmJwtExp();
-    return this.http.get<Member[]>(`${API_ENDPOINT}/members`, {
+    return this.http.get<Member[]>(`${environment.API_ENDPOINT}/members`, {
       headers: {
         Authorization: `Bearer ${this.storageService.getAccessToken()}`
       }
@@ -45,7 +45,7 @@ export class ApiService {
 
   getMember(code: string): Observable<Member> {
     this.confirmJwtExp();
-    return this.http.get<Member>(`${API_ENDPOINT}/members/${code}`, {
+    return this.http.get<Member>(`${environment.API_ENDPOINT}/members/${code}`, {
       headers: {
         Authorization: `Bearer ${this.storageService.getAccessToken()}`
       }
@@ -63,7 +63,7 @@ export class ApiService {
 
   updateBio(code: string, bio: string): Observable<Member> {
     this.confirmJwtExp();
-    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+    return this.http.put<Member>(`${environment.API_ENDPOINT}/members/${code}`, {
       bio
     }, {
       headers: {
@@ -76,7 +76,7 @@ export class ApiService {
 
   updateScreenName(code: string, screenName: string): Observable<Member> {
     this.confirmJwtExp();
-    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+    return this.http.put<Member>(`${environment.API_ENDPOINT}/members/${code}`, {
       screenName
     }, {
       headers: {
@@ -89,7 +89,7 @@ export class ApiService {
 
   updateRole(code: string, role: string): Observable<Member> {
     this.confirmJwtExp();
-    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+    return this.http.put<Member>(`${environment.API_ENDPOINT}/members/${code}`, {
       role
     }, {
       headers: {
@@ -102,7 +102,7 @@ export class ApiService {
 
   updatePassword(code: string, password: string): Observable<Member> {
     this.confirmJwtExp();
-    return this.http.put<Member>(`${API_ENDPOINT}/members/${code}`, {
+    return this.http.put<Member>(`${environment.API_ENDPOINT}/members/${code}`, {
       password
     }, {
       headers: {
@@ -113,9 +113,9 @@ export class ApiService {
     }));
   }
 
-  getAuditLogs(offset: number = 0, limit: number = AUDIT_PER_REQUEST_LIMIT): Observable<AuditLog[]> {
+  getAuditLogs(offset: number = 0, limit: number = environment.AUDIT_PER_REQUEST_LIMIT): Observable<AuditLog[]> {
     this.confirmJwtExp();
-    return this.http.get<AuditLog[]>(`${API_ENDPOINT}/audit`, {
+    return this.http.get<AuditLog[]>(`${environment.API_ENDPOINT}/audit`, {
       headers: {
         Authorization: `Bearer ${this.storageService.getAccessToken()}`
       },
