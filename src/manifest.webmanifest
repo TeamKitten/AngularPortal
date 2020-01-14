@@ -1,7 +1,7 @@
 {
   "name": "TeamKitten Portal",
   "short_name": "Portal",
-  "theme_color": "#008ffe",
+  "theme_color": "#fff",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "/",
