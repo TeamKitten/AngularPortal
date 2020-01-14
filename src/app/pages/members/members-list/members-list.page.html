@@ -4,7 +4,7 @@
       <ion-card (click)="openMemberInfoModal(m)">
         <ion-card-content slot="start">
           <ion-avatar>
-            <img class="avatar" [alt]="m.name" [src]="m.avatarUrl">
+            <img *ngIf="m.avatarUrl" class="avatar" [alt]="m.name" [src]="m.avatarUrl">
           </ion-avatar>
         </ion-card-content>
         <ion-card-header>
