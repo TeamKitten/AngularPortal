@@ -4,7 +4,7 @@ import {ApiService} from '../../../services/api/api.service';
 import {ToastController} from '@ionic/angular';
 import {Router} from '@angular/router';
 import {environment} from '../../../../environments/environment';
-import * as moment from 'moment-timezone';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-audit',
@@ -66,6 +66,6 @@ export class AuditPage implements OnInit {
   }
 
   parseCreatedAt(createdAt: string) {
-    return moment(createdAt).tz('Asia/Tokyo').format('YYYY/MM/DD HH:mm:ss');
+    return dayjs(createdAt).format('YYYY/MM/DD HH:mm:ss');
   }
 }

@@ -6,11 +6,11 @@ import {environment} from '../../../environments/environment';
 import {Member} from '../../models/Member';
 import {StorageService} from '../storage/storage.service';
 import {JwtPayload} from '../../models/JwtPayload';
-import * as moment from 'moment';
 import {Router} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
 import {catchError} from 'rxjs/operators';
 import {AuditLog} from '../../models/AuditLog';
+import * as dayjs from 'dayjs';
 
 @Injectable({
   providedIn: 'root'
@@ -130,7 +130,7 @@ export class ApiService {
 
   private async confirmJwtExp() {
     const jwtPayload = this.decodeMyAccessToken();
-    const expDiff = moment().diff(moment(jwtPayload.exp * 1000));
+    const expDiff = dayjs().diff(dayjs(jwtPayload.exp * 1000));
     if (expDiff >= 0) {
       const alert = await this.alertCtrl.create({
         header: 'エラー',

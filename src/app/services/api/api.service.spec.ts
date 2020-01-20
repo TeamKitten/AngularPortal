@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 import {AlertController, ToastController} from '@ionic/angular';
 import {StorageService} from '../storage/storage.service';
 import jwt from 'jsonwebtoken';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 describe('ApiService', () => {
   let service: ApiService;
@@ -38,8 +38,8 @@ describe('ApiService', () => {
     const sampleJwtToken = jwt.sign({
       sub: '1234567890',
       name: 'John Doe',
-      iat: moment().unix(),
-      exp: moment().add(1, 'days').unix()
+      iat: dayjs().unix(),
+      exp: dayjs().add(1, 'day').unix()
     }, 'secret');
     storageServiceSpy.getAccessToken.and.returnValue(sampleJwtToken);
     TestBed.configureTestingModule({
@@ -129,8 +129,8 @@ describe('ApiService', () => {
     const sampleJwtToken = jwt.sign({
       sub: '1234567890',
       name: 'John Doe',
-      iat: moment().subtract(2, 'days').unix(),
-      exp: moment().subtract(1, 'days').unix()
+      iat: dayjs().subtract(2, 'day').unix(),
+      exp: dayjs().subtract(1, 'day').unix()
     }, 'secret');
     storageServiceSpy.getAccessToken.and.returnValue(sampleJwtToken);
     const newService = new ApiService(

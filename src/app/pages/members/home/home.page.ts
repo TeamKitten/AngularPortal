@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ApiService} from '../../../services/api/api.service';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-home',
@@ -26,11 +26,11 @@ export class HomePage implements OnInit {
   }
 
   initializeTeamAge() {
-    const origin = moment()
+    const origin = dayjs()
       .set('year', 2018)
-      .set('months', 0)
-      .set('dates', 30);
-    const now = moment();
-    this.teamAge = now.diff(origin, 'days');
+      .set('month', 0)
+      .set('date', 30);
+    const now = dayjs();
+    this.teamAge = now.diff(origin, 'day');
   }
 }
