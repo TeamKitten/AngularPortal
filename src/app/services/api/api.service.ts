@@ -128,6 +128,32 @@ export class ApiService {
     }));
   }
 
+  uploadAvatarImage(code: string, base64: string): Observable<Member> {
+    this.confirmJwtExp();
+    const data = new FormData();
+    data.append('file', this.toBlob(base64));
+    return this.http.post<Member>(`${environment.API_ENDPOINT}/members/${code}/avatar`, data, {
+      headers: {
+        Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      },
+    }).pipe(catchError(err => {
+      return this.processApiError(err);
+    }));
+  }
+
+  uploadCoverImage(code: string, base64: string): Observable<Member> {
+    this.confirmJwtExp();
+    const data = new FormData();
+    data.append('file', this.toBlob(base64));
+    return this.http.post<Member>(`${environment.API_ENDPOINT}/members/${code}/cover`, data, {
+      headers: {
+        Authorization: `Bearer ${this.storageService.getAccessToken()}`
+      },
+    }).pipe(catchError(err => {
+      return this.processApiError(err);
+    }));
+  }
+
   private async confirmJwtExp() {
     const jwtPayload = this.decodeMyAccessToken();
     const expDiff = dayjs().diff(dayjs(jwtPayload.exp * 1000));
@@ -151,5 +177,21 @@ export class ApiService {
       color: 'danger'
     }).then(toast => toast.present());
     return err;
+  }
+
+  private toBlob(base64: string): Blob | undefined {
+    const bin = atob(base64.replace(/^.*,/, ''));
+    const buffer = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) {
+      buffer[i] = bin.charCodeAt(i);
+    }
+    // Blobを作成
+    try {
+      return new Blob([buffer.buffer], {
+        type: 'image/png'
+      });
+    } catch (e) {
+      return;
+    }
   }
 }

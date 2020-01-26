@@ -41,4 +41,14 @@ describe('YouPage', () => {
     component.openChangeScreenNameModal();
     expect(modalCtrlSpy.create).toHaveBeenCalled();
   });
+
+  it('openUploadAvatarModal', () => {
+    component.openUploadAvatarModal();
+    expect(modalCtrlSpy.create).toHaveBeenCalled();
+  });
+
+  it('openUploadCoverImageModal', () => {
+    component.openUploadCoverImageModal();
+    expect(modalCtrlSpy.create).toHaveBeenCalled();
+  });
 });

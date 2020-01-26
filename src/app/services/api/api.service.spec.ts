@@ -199,4 +199,18 @@ describe('ApiService', () => {
     service.getAuditLogs().subscribe(resp => expect(resp).toEqual([]),
       fail);
   });
+
+  it('uploadAvatarImage', () => {
+    httpClientSpy.post.and.returnValue(of(leaderFixture));
+    service.uploadAvatarImage(leaderFixture.code, '')
+      .subscribe(resp => expect(resp).toEqual(leaderFixture),
+        fail);
+  });
+
+  it('uploadCoverImage', () => {
+    httpClientSpy.post.and.returnValue(of(leaderFixture));
+    service.uploadCoverImage(leaderFixture.code, '')
+      .subscribe(resp => expect(resp).toEqual(leaderFixture),
+        fail);
+  });
 });

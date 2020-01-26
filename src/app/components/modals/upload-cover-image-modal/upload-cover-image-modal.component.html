@@ -1,0 +1,44 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-title>カバー画像変更</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">閉じる</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div
+    class="cropperWrapper"
+    [ngStyle]="cropperWrapperStyle"
+  >
+    <image-cropper
+      class="cropperRoot"
+      format="png"
+      [aspectRatio]="16/9"
+      [imageChangedEvent]="imageChangedEvent"
+      (imageCropped)="imageCropped($event)"
+    ></image-cropper>
+  </div>
+
+  <div>
+    <ion-button
+      type="submit"
+      color="primary"
+      expand="full"
+      (click)="selectFileClick()"
+      [disabled]="false"
+    >ファイルを選択
+      <input #fileInput type="file" accept="image/*" (change)="fileChangeEvent($event)">
+    </ion-button>
+  </div>
+  <ion-button
+    type="submit"
+    color="primary"
+    expand="full"
+    (click)="uploadCoverImage()"
+    [disabled]="!croppedImage"
+  >アップロード
+  </ion-button>
+  <b>※公序良俗又は著作権法に反するファイルはアップロードしないでください。</b>
+</ion-content>

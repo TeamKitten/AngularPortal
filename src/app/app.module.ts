@@ -16,6 +16,10 @@ import {MemberInfoModalComponent} from './components/modals/member-info-modal/me
 import {UpdateScreenNameModalComponent} from './components/modals/update-screen-name-modal/update-screen-name-modal.component';
 import {UpdatePasswordModalComponent} from './components/modals/update-password-modal/update-password-modal.component';
 import {UpdateRoleModalComponent} from './components/modals/update-role-modal/update-role-modal.component';
+import {UploadAvatarModalComponent} from './components/modals/upload-avatar-modal/upload-avatar-modal.component';
+import {UploadAvatarModalModule} from './components/modals/upload-avatar-modal/upload-avatar-modal.module';
+import {UploadCoverImageModalComponent} from './components/modals/upload-cover-image-modal/upload-cover-image-modal.component';
+import {UploadCoverImageModalModule} from './components/modals/upload-cover-image-modal/upload-cover-image-modal.module';
 
 @NgModule({
   declarations: [
@@ -31,14 +35,18 @@ import {UpdateRoleModalComponent} from './components/modals/update-role-modal/up
     MemberInfoModalComponent,
     UpdateScreenNameModalComponent,
     UpdatePasswordModalComponent,
-    UpdateRoleModalComponent
+    UpdateRoleModalComponent,
+    UploadAvatarModalComponent,
+    UploadCoverImageModalComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
-    FormsModule
+    FormsModule,
+    UploadAvatarModalModule,
+    UploadCoverImageModalModule
   ],
   providers: [
     StatusBar,
